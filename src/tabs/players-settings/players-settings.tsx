@@ -1,12 +1,14 @@
 import React from 'react';
 import {ScrollView, View} from 'react-native';
 import mainStyles from '../../../App.style';
-import {Card, Input} from 'react-native-elements';
+import {Card, Icon, Input} from 'react-native-elements';
 import ColorPalette from 'react-native-color-palette';
 import style from './players-settings.style';
 import {PlayersThemeColors} from './players-theme-colors';
 import PlayerSetting from './player-setting';
 import {GameModeEnum} from '../game-settings/game-mode.enum';
+import { NavigationActions, StackActions } from 'react-navigation';
+
 
 interface Props {
   navigation: any
@@ -52,7 +54,8 @@ export default class PlayersSettings extends React.Component<Props> {
 
   public render(): React.ReactElement<React.JSXElementConstructor<any>> {
     return (
-      <ScrollView style= { mainStyles.container }>
+      <View style= { mainStyles.container }>
+        <ScrollView>
         {
           // Loop each times we get a player
           this.playersGameSettings.map((player, i) => {
@@ -89,8 +92,29 @@ export default class PlayersSettings extends React.Component<Props> {
             </View>
           })
         }
-      </ScrollView>
+        </ScrollView>
+        <View>
+          <Icon
+            containerStyle={ mainStyles.floatingButton }
+            reverse
+            name='chevron-right'
+            type='font-awesome'
+            onPress={() => this.navigateToGame()} />
+        </View>
+      </View>
     );
+  }
+
+  /**
+   * Reset navigation stack and go to game page
+   */
+  private navigateToGame() {
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Game' })],
+    });
+
+    this.props.navigation.dispatch(resetAction);
   }
 
   /**

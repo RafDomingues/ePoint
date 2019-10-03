@@ -5,6 +5,8 @@ import Settings from './src/tabs/settings/settings';
 import React from 'react';
 import GameSettings from './src/tabs/game-settings/game-settings';
 import PlayersSettings from './src/tabs/players-settings/players-settings';
+import Game from './src/tabs/game/game';
+import {Button} from 'react-native';
 
 
 export default class App extends React.Component {
@@ -31,6 +33,9 @@ const MainNavigator = createStackNavigator(
       navigationOptions: () => ({
         title: 'Configure Players',
       })
+    },
+    Game: {
+      screen: Game
     },
     GameSettings: {
       screen: GameSettings,
